@@ -18,12 +18,12 @@ class OutputComponentType(Enum):
 class OutputStructure:
     sorted_output_components: list[OutputComponentType]
     sorted_decision_options: list[DecisionOption]
-    first_unstructred_output: bool
+    first_unstructured_output: bool
 
-    def __init__(self, sorted_output_components: list[OutputComponentType], sorted_decision_options: list[DecisionOption], first_unstructred_output: bool):
+    def __init__(self, sorted_output_components: list[OutputComponentType], sorted_decision_options: list[DecisionOption], first_unstructured_output: bool):
         self.sorted_output_components = sorted_output_components
         self.sorted_decision_options = sorted_decision_options
-        self.first_unstructred_output = first_unstructred_output
+        self.first_unstructured_output = first_unstructured_output
 
     @property
     def default_order_decision_options(self) -> list[OutputComponentType]:
@@ -34,12 +34,12 @@ class OutputStructure:
     def has_unstructured_decision_text(self) -> bool:
         return (
             OutputComponentType.DECISION_REASON in self.sorted_decision_options
-            or self.first_unstructred_output
+            or self.first_unstructured_output
         )
 
     @property
     def has_unstructured_decision_text_before_decision(self) -> bool:
-        if self.first_unstructred_output:
+        if self.first_unstructured_output:
             return True
 
         sorted_output_options = self.sorted_decision_options
@@ -90,7 +90,7 @@ class OutputStructure:
         return {
             "sorted_output_components": [component.value for component in self.sorted_output_components],
             "sorted_decision_options": [option.value for option in self.sorted_decision_options],
-            "first_unstructred_output": self.first_unstructred_output,
+            "first_unstructured_output": self.first_unstructured_output,
             "unsorted_output_components": [component.value for component in self.default_order_decision_options],
         }
 
@@ -118,7 +118,7 @@ class OutputStructure:
                 component) for component in data["sorted_output_components"]],
             sorted_decision_options=[DecisionOption(
                 option) for option in data["sorted_decision_options"]],
-            first_unstructred_output=data["first_unstructred_output"],
+            first_unstructured_output=data["first_unstructured_output"],
         )
 
 

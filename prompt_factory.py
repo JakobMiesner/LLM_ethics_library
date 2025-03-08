@@ -62,7 +62,7 @@ output_component_type_values = {
 def get_all_output_structure_combinations():
     for add_normative_ethical_theory_explanation in [True, False]:
         for add_decision_reason in [True, False]:
-            for first_unstructred_output in [True, False]:
+            for first_unstructured_output in [True, False]:
                 for permuted_decision_options in itertools.permutations([option for option in DecisionOption]):
                     sorted_output_components = []
                     if add_normative_ethical_theory_explanation:
@@ -79,7 +79,7 @@ def get_all_output_structure_combinations():
                             sorted_output_components=list(
                                 permuted_output_components),
                             sorted_decision_options=permuted_decision_options,
-                            first_unstructred_output=first_unstructred_output
+                            first_unstructured_output=first_unstructured_output
                         )
 
 
@@ -154,7 +154,7 @@ def construct_prompts(dilemma_identifier: str, ethical_framework_identifier: str
                     structure_prompt += f"\n{output_schema_json_schema}"
                 # endregin
 
-                if not output_structure.first_unstructred_output:
+                if not output_structure.first_unstructured_output:
                     prompt += f"\n{structure_prompt}"
                     prompts = [prompt]
                 else:
