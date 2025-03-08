@@ -53,6 +53,9 @@ class OutputStructure:
     def get_decision_option_index(self, decision_option: DecisionOption) -> int:
         return self.sorted_decision_options.index(decision_option)
 
+    def get_contains_output_component(self, output_component: OutputComponentType) -> bool:
+        return output_component in self.sorted_output_components
+
     def get_json_schema(self) -> object:
         """
         Get the OpenAI structured output schema for the current OutputStructure object.
@@ -101,6 +104,8 @@ class OutputStructure:
             "decision_option_no_index": self.get_decision_option_index(DecisionOption.NO),
             "decision_option_undecided_index": self.get_decision_option_index(DecisionOption.UNDECIDED),
         })
+        for component in OutputComponentType:
+            res[f"contains_{component.value.lower()}"] = self.get_contains_output_component(component)
         return res
 
     @classmethod
