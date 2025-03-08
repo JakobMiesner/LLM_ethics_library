@@ -192,8 +192,8 @@ class PromptWrapper:
             dilemma_identifier=data["dilemma_identifier"],
             ethical_framework_identifier=data["ethical_framework_identifier"],
             base_prompt_identifier=data["base_prompt_identifier"],
-            prompt_has_output_structure_description=data["prompt_has_output_structure_description"],
-            prompt_has_output_structure_json_schema=data["prompt_has_output_structure_json_schema"],
+            prompt_has_output_structure_description=data.get("prompt_has_output_structure_description", True),
+            prompt_has_output_structure_json_schema=data.get("prompt_has_output_structure_json_schema", True),
             output_structure=OutputStructure.from_dict(
                 data["output_structure"]),
             version=data["version"],
