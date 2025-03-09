@@ -92,7 +92,6 @@ class OutputStructure:
             "sorted_output_components": [component.value for component in self.sorted_output_components],
             "sorted_decision_options": [option.value for option in self.sorted_decision_options],
             "first_unstructured_output": self.first_unstructured_output,
-            "unsorted_output_components": [component.value for component in self.default_order_decision_options],
         }
 
     def to_analysis_dict(self):
@@ -104,6 +103,7 @@ class OutputStructure:
             "decision_option_yes_index": self.get_decision_option_index(DecisionOption.YES),
             "decision_option_no_index": self.get_decision_option_index(DecisionOption.NO),
             "decision_option_undecided_index": self.get_decision_option_index(DecisionOption.UNDECIDED),
+            "default_order_decision_options": [component.value for component in self.default_order_decision_options],
         })
         for component in OutputComponentType:
             res[f"contains_{component.value.lower()}"] = self.get_contains_output_component(component)
