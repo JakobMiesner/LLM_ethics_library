@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Optional
 
 from .dilemma_wrapper import DilemmaWrapper, InvertableDilemmaWrapper, get_dilemma
 
@@ -190,7 +191,7 @@ class PromptWrapper:
         res = cls(
             prompts=data["prompts"],
             dilemma_identifier=data["dilemma_identifier"],
-            ethical_framework_identifier=data["ethical_framework_identifier"],
+            ethical_framework_identifier=data.get("ethical_framework_identifier", data.get("framework_identifier")),
             base_prompt_identifier=data["base_prompt_identifier"],
             prompt_has_output_structure_description=data.get("prompt_has_output_structure_description", True),
             prompt_has_output_structure_json_schema=data.get("prompt_has_output_structure_json_schema", True),
@@ -252,10 +253,20 @@ class Response:
     llm_identifier: LlmName
     unparsed_messages: list[LlmMessage]
     parsed_response: dict
-    prompt_tokens: int
-    completion_tokens: int
+    # Optional as this was only introduced in v1.5
+    prompt_tokens: Optional[int]
+    completion_tokens: Optional[int]
 
-    def __init__(self, wrapped_prompt: PromptWrapper, decision: DecisionOption, llm_identifier: LlmName, unparsed_messages: list[LlmMessage], parsed_response: dict, prompt_tokens: int, completion_tokens: int):
+    def __init__(
+        self,
+        wrapped_prompt: PromptWrapper,
+        decision: DecisionOption,
+        llm_identifier: LlmName,
+        unparsed_messages: list[LlmMessage],
+        parsed_response: dict,
+        prompt_tokens: Optional[int],
+        completion_tokens: Optional[int]
+    ):
         self.wrapped_prompt = wrapped_prompt
         self.decision = decision
         self.llm_identifier = llm_identifier
@@ -282,9 +293,9 @@ class Response:
             decision=DecisionOption(data["decision"]),
             llm_identifier=LlmName(data["llm_identifier"]),
             unparsed_messages=[LlmMessage.from_dict(item) for item in data["unparsed_messages"]],
-            parsed_response=data["parsed_response"],
-            prompt_tokens=data["prompt_tokens"],
-            completion_tokens=data["completion_tokens"],
+            parsed_response=data.get("parsed_response"),
+            prompt_tokens=data.get("prompt_tokens"),
+            completion_tokens=data.get("completion_tokens"),
         )
 
     def to_analysis_dict(self):
