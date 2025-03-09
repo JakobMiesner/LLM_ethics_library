@@ -34,7 +34,7 @@ class OutputStructure:
     @property
     def has_unstructured_decision_text(self) -> bool:
         return (
-            OutputComponentType.DECISION_REASON in self.sorted_decision_options
+            OutputComponentType.DECISION_REASON in self.sorted_output_components
             or self.first_unstructured_output
         )
 
@@ -43,7 +43,7 @@ class OutputStructure:
         if self.first_unstructured_output:
             return True
 
-        sorted_output_options = self.sorted_decision_options
+        sorted_output_options = self.sorted_output_components
         if OutputComponentType.DECISION_REASON in sorted_output_options:
             decision_reason_index = sorted_output_options.index(OutputComponentType.DECISION_REASON)
             decision_index = sorted_output_options.index(OutputComponentType.DECISION)
