@@ -100,13 +100,13 @@ class OutputStructure:
             # New fields
             "has_unstructured_decision_text": self.has_unstructured_decision_text,
             "has_unstructured_decision_text_before_decision": self.has_unstructured_decision_text_before_decision,
-            "decision_option_yes_index": self.get_decision_option_index(DecisionOption.YES),
-            "decision_option_no_index": self.get_decision_option_index(DecisionOption.NO),
-            "decision_option_undecided_index": self.get_decision_option_index(DecisionOption.UNDECIDED),
             "default_order_decision_options": [component.value for component in self.default_order_decision_options],
         })
+
         for component in OutputComponentType:
             res[f"contains_{component.value.lower()}"] = self.get_contains_output_component(component)
+        for option in DecisionOption:
+            res[f"decision_option_index_{option.value.lower()}"] = self.get_decision_option_index(option)
         return res
 
     @classmethod
