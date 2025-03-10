@@ -27,7 +27,7 @@ class OutputStructure:
         self.first_unstructured_output = first_unstructured_output
 
     @property
-    def default_order_decision_options(self) -> list[OutputComponentType]:
+    def default_order_output_components(self) -> list[OutputComponentType]:
         """Returns the contained decision options in the default order"""
         return [component for component in OutputComponentType if component in self.sorted_output_components]
 
@@ -100,7 +100,7 @@ class OutputStructure:
             # New fields
             "has_unstructured_decision_text": self.has_unstructured_decision_text,
             "has_unstructured_decision_text_before_decision": self.has_unstructured_decision_text_before_decision,
-            "default_order_decision_options": [component.value for component in self.default_order_decision_options],
+            "default_order_output_components": [component.value for component in self.default_order_output_components],
         })
 
         for component in OutputComponentType:
