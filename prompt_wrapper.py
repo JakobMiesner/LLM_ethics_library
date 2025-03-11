@@ -54,7 +54,7 @@ class OutputStructure:
     def get_decision_option_index(self, decision_option: DecisionOption) -> int:
         return self.sorted_decision_options.index(decision_option)
 
-    def get_contains_output_component(self, output_component: OutputComponentType) -> bool:
+    def get_has_output_component(self, output_component: OutputComponentType) -> bool:
         return output_component in self.sorted_output_components
 
     def get_json_schema(self) -> object:
@@ -104,7 +104,7 @@ class OutputStructure:
         })
 
         for component in OutputComponentType:
-            res[f"contains_{component.value.lower()}"] = self.get_contains_output_component(component)
+            res[f"has_{component.value.lower()}"] = self.get_has_output_component(component)
         for option in DecisionOption:
             res[f"decision_option_index_{option.value.lower()}"] = self.get_decision_option_index(option)
         return res
