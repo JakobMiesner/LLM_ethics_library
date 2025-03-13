@@ -72,6 +72,11 @@ class OutputStructure:
     def get_has_output_component(self, output_component: OutputComponentType) -> bool:
         return output_component in self.sorted_output_components
 
+    def get_output_component_index(self, output_component: OutputComponentType) -> Optional[int]:
+        if not self.get_has_output_component(output_component):
+            return None
+        return self.sorted_output_components.index(output_component)
+
     def get_json_schema(self) -> object:
         """
         Get the OpenAI structured output schema for the current OutputStructure object.
@@ -122,6 +127,7 @@ class OutputStructure:
 
         for component in OutputComponentType:
             res[f"has_{component.value.lower()}"] = self.get_has_output_component(component)
+            res[f"output_component_index_{component.value.lower()}"] = self.get_output_component_index(component)
         for option in DecisionOption:
             res[f"decision_option_index_{option.value.lower()}"] = self.get_decision_option_index(option)
         return res
