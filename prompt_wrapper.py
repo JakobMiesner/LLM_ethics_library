@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Optional
+from typing import Literal, Optional
 
 from .dilemma_wrapper import DilemmaWrapper, InvertableDilemmaWrapper, get_dilemma
 
@@ -51,6 +51,21 @@ class OutputStructure:
 
         return False
 
+    @property
+    def has_unstructured_decision_text_after_decision(self) -> bool:
+        if self.has_unstructured_decision_text and not self.has_unstructured_decision_text_before_decision:
+            return True
+        return False    
+
+    @property
+    def unstructured_decision_text_position(self) -> Literal["BEFORE_DECISION", "AFTER_DECISION", "NO_UNSTRUCTURED_DECISION_TEXT"]:
+        if self.has_unstructured_decision_text_before_decision:
+            return "BEFORE_DECISION"
+        elif self.has_unstructured_decision_text_after_decision:
+            return "AFTER_DECISION"
+        else:
+            return "NO_UNSTRUCTURED_DECISION_TEXT"
+
     def get_decision_option_index(self, decision_option: DecisionOption) -> int:
         return self.sorted_decision_options.index(decision_option)
 
@@ -100,6 +115,8 @@ class OutputStructure:
             # New fields
             "has_unstructured_decision_text": self.has_unstructured_decision_text,
             "has_unstructured_decision_text_before_decision": self.has_unstructured_decision_text_before_decision,
+            "has_unstructured_decision_text_after_decision": self.has_unstructured_decision_text_after_decision,
+            "unstructured_decision_text_position": self.unstructured_decision_text_position,
             "default_order_output_components": [component.value for component in self.default_order_output_components],
         })
 
