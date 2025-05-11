@@ -8,6 +8,10 @@ Functions:
   - utilizes [structured output](https://platform.openai.com/docs/guides/structured-outputs) to ensure correct response format
 - Provides wrapper classes for Prompts and Responses to make working with them easier
   - Importing and Exporting from/to JSON is supported
+- Previously generated prompts & responses can be found in the `data` directory
+
+# Read before using!
+- The content (prompts & responses) of the different versions are not mutually exclusive. When merging different versions together, make sure to check for duplicates and remove them. 
 
 # Results
 ## Results of v1.4 (still work in progress!)
